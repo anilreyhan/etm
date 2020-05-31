@@ -1,0 +1,216 @@
+{{#each errors}}
+{{else}}
+{{/each}}
+<div class="row">
+    <div class="col-md-6 mx-auto">
+        <div class="card card-body">
+            <h3>Yeni Doküman</h3>
+            <form action="/documents" method="post" enctype="multipart/form-data">
+
+
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <label class="input-group-text">Başlık</label>
+                    </div>
+                    <input type="text" class="form-control" value="{{name}}" name="name" required>
+                </div>
+
+
+
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">Kayıt Sıra No</span>
+                    </div>
+                    <input type="text" class="form-control" value="{{recordNumber}}" name="recordNumber" required>
+                </div>
+                <br>
+
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <label class="input-group-text">Gönderen Kurum</label>
+                    </div>
+                    <input type="text" class="form-control" value="{{from}}" name="from">
+                </div>
+
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <label class="input-group-text">Gönderilen Kurum</label>
+                    </div>
+                    <input type="text" class="form-control" value="{{to}}" name="to">
+                </div>
+
+
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="">Belge Tarihi</span>
+                    </div>
+                    <input type="date" id="dateInput" class="form-control" name="documentDate" value="{{documentDate}}"
+                        required>
+                </div>
+
+                <br>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <label class="input-group-text">Konusu</label>
+                    </div>
+                    <input type="text" class="form-control" value="{{subject}}" name="subject" required>
+                </div>
+
+
+
+                <div class="card card-body">
+
+                    <div class="form-group">
+                        <label for="document">Belgenizi Ekleyin</label>
+                        <input type="file" class="form-control-file" accept="application/pdf" name="document" required>
+                    </div>
+
+                </div>
+
+                <br>
+
+                <!--<div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <div class="input-group-text">
+                    <input type="checkbox" id="isReply" value="true" onclick="toggleReply(this);" name="isReply"
+                        aria-label="Checkbox for following text input">
+                </div>
+            </div>
+            <label type="text" class="form-control" aria-label="Text input with checkbox">Cevap Belgesi
+            </label>
+        </div>
+        -->
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">Cevap Belgesi İse Belgeyi seçiniz</span>
+                    </div>
+                    <input type="text" class="form-control" id="myInput" onfocus="focusInTeslimAlan(this)"
+                        onkeyup="handleTeslimAlanChange()" name="replyTo">
+                </div>
+                <ul id="myUL" class="list-group">
+                </ul>
+                <br>
+
+                <button type="submit" class="btn btn-primary float-right">Submit</button>
+            </form>
+
+        </div>
+    </div>
+</div>
+
+
+<script>
+
+    var isReplyField = document.getElementById("isReplyField");
+
+    isReplyField.style.display = "none";
+
+    function toggleReply(checkBox) {
+        if (checkBox.checked == true) {
+            isReplyField.style.display = "block";
+        } else {
+            isReplyField.style.display = "none";
+        }
+    }
+</script>
+
+
+
+
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+
+
+<script>
+    $(document).ready(function () {
+        console.log("asda");
+        getData();
+    });
+
+    function arrangeElements(data) {
+
+        for (var i = 0; i < data.length; i++) {
+            if (!(data[i].recordNumber == 1 || data[i].recordNumber == 2))
+                $('#myUL').append('<li><a onclick="newwin(this)" href="#" >' + data[i].name + ' - ' + data[i].recordNumber + '</a></li>');
+        }
+    }
+
+
+    function focusInTeslimAlan() {
+        console.log("focusin");
+        document.getElementById("myUL").style.display = "block";
+    }
+
+
+    function getData() {
+        var uri = "http://localhost:8090/documents/docslist";
+        console.log("get data");
+        $.ajax({
+            type: 'GET',
+            url: uri,
+            headers: {
+                'token': 'm-todveryveryverysecrettoken'
+            },
+            success: function (data) {
+                arrangeElements(data);
+            }
+        });
+    }
+
+
+
+    function newwin(data) {
+        console.log(data);
+        document.getElementById("myUL").style.display = "none";
+
+        document.getElementById("myInput").value = data.innerHTML;
+    }
+
+
+
+    function handleTeslimAlanChange() {
+        var input, filter, ul, li, a, i, txtValue;
+        input = document.getElementById("myInput");
+        filter = input.value.toUpperCase();
+        ul = document.getElementById("myUL");
+        li = ul.getElementsByTagName("li");
+        for (i = 0; i < li.length; i++) {
+            a = li[i].getElementsByTagName("a")[0];
+            txtValue = a.textContent || a.innerText;
+            if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                li[i].style.display = "";
+            } else {
+                li[i].style.display = "none";
+            }
+        }
+    }
+
+</script>
+
+<style>
+    #myUL {
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+        display: none;
+    }
+
+    #myUL li a {
+        border: 1px solid #ddd;
+        margin-top: -1px;
+        /* Prevent double borders */
+        background-color: #f6f6f6;
+        padding: 12px;
+        text-decoration: none;
+        font-size: 18px;
+        color: black;
+        display: block
+    }
+
+
+    .list-group {
+        max-height: 220px;
+        margin-bottom: 10px;
+        overflow: scroll;
+        -webkit-overflow-scrolling: touch;
+    }
+</style>

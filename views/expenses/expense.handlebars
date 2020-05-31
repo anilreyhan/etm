@@ -1,0 +1,84 @@
+<div class="card card-body">
+    <h3>Harcama Detayları</h3>
+
+
+  
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <label class="input-group-text">Tarih</label>
+            </div>
+            <input type="date" class="form-control" name="documentDate" value="{{expense.documentDate}}" readonly>
+        </div>
+
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <label class="input-group-text">Belge Numarası</label>
+            </div>
+            <input type="number" class="form-control" name="documentNumber" value="{{expense.documentNumber}}" readonly>
+        </div>
+
+
+        <div class="input-group">
+            <div class="input-group-prepend">
+                <span class="input-group-text">Açıklama</span>
+            </div>
+            <input type="text" class="form-control" name="comment" value="{{expense.comment}}"  readonly>
+        </div>
+
+        <br>
+
+        <div class="input-group">
+            <div class="input-group-prepend">
+                <span class="input-group-text">Matrah</span>
+            </div>
+            <input type="number" class="form-control" name="amount" value="{{expense.amount}}" readonly>
+        </div>
+
+        <br>
+
+
+        <div class="input-group">
+            <div class="input-group-prepend">
+                <span class="input-group-text">KDV %8</span>
+            </div>
+            <input type="number" class="form-control" name="tax8" value="{{expense.tax8}}" readonly>
+        </div>
+
+        <br>
+
+        <div class="input-group">
+            <div class="input-group-prepend">
+                <span class="input-group-text">KDV %18</span>
+            </div>
+            <input type="number" class="form-control" name="tax18" value="{{expense.tax18}}" readonly>
+        </div>
+
+        <br>
+
+        <div class="input-group">
+            <div class="input-group-prepend">
+                <span class="input-group-text">Belge Toplamı</span>
+            </div>
+            <input type="number" class="form-control" name="total" value="{{expense.total}}" readonly>
+        </div>
+        <br>
+
+
+        <div class="col-sm-4">
+            <img src="/expenses/{{expense.id}}.png" class="img-thumbnail">
+        </div>
+
+        <br>
+        <br>
+
+    
+</div>
+<script>
+    var slider = document.getElementById("myRange");
+    var output = document.getElementById("demo");
+    output.innerHTML = slider.value;
+
+    slider.oninput = function () {
+        output.innerHTML = this.value;
+    }
+</script>

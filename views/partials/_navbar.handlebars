@@ -1,0 +1,120 @@
+<nav class="navbar navbar-expand-sm navbar-dark bg-secondary mb-3">
+    <div class="container">
+        <a class="navbar-brand" href="/">
+            <img src="/img/ETM_BI.png" width="75" height="30" alt="">
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        
+
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="/">Home</a>
+                </li>
+            </ul>
+
+            <ul class="navbar-nav">
+                <li class="nav-item dropdown">
+                    <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown"
+                        id="navbarDropdownMenuLink">Holidays</a>
+                    <div class="dropdown-menu">
+                        <a href="/holidays/requestNew" class="dropdown-item">Request New Holiday</a>
+                        
+                        <a href="/holidays/list" class="dropdown-item">List Holidas</a>
+                        <!-- <a href="/holidays/approve" class="dropdown-item">İzin Onayla</a> 
+                        <a href="/holidays/nationalHolidays" class="dropdown-item">Resmi Tatilleri Görüntüle</a>-->
+                        
+
+                    </div>
+                </li>
+            </ul>
+
+            <ul class="navbar-nav">
+                <li class="nav-item dropdown">
+                    <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown"
+                        id="navbarDropdownMenuLink">Expenses</a>
+                    <div class="dropdown-menu">
+                        <a href="/expenses/addNewExpense" class="dropdown-item">Add Expense</a>
+                        <a href="/expenses/list" class="dropdown-item">List Expenses</a>
+                        <a href="/expenses/approve" class="dropdown-item">Approve Expenses</a>
+
+                        <a href="/expenses/list" class="dropdown-item">My Expenses</a>
+
+                    </div>
+                </li>
+            </ul>
+
+            <!--
+            <ul class="navbar-nav">
+                <li class="nav-item dropdown">
+                    <a href="#" class="nav-link dropdown-toggle disabled" disabled="true" data-toggle="dropdown"
+                        id="navbarDropdownMenuLink">Toplantılar</a>
+                    <div class="dropdown-menu">
+                        <a href="/meetings/list" class="dropdown-item " disabled>Toplantıları İncele</a>
+                        <a href="/meetings/add" class="dropdown-item" disabled="true">Toplantı Ekle</a>
+                    </div>
+                </li>
+            </ul>
+
+           
+            <ul class="navbar-nav">
+                <li class="nav-item dropdown">
+                    <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown"
+                        id="navbarDropdownMenuLink">Dökümanlar</a>
+                    <div class="dropdown-menu">
+                        <a href="/documents/list" class="dropdown-item">Dokümanları İncele</a>
+                        <a href="/documents/add" class="dropdown-item">Doküman Ekle</a>
+                        {{#if user.isTk}}
+                        <a href="/documents/approve" class="dropdown-item">Doküman Onayla</a>
+                        {{/if}}
+
+                    </div>
+                </li>
+            </ul> -->
+            <ul class="navbar-nav">
+                <li class="nav-item dropdown">
+                    <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown"
+                        id="navbarDropdownMenuLink">Users</a>
+                    <div class="dropdown-menu">
+                        <a href="/users/register" class="dropdown-item">Add User</a>
+                        <a href="/users/list" class="dropdown-item">List Users</a>
+                    </div>
+                </li>
+            </ul>
+
+
+
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item dropdown">
+                    <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" id="navbarUsername">
+                        {{user.FName}} Anıl </a>
+                    <div class="dropdown-menu dropdown-menu-right">
+                        <a href="/users/user/{{user.id}}" class="dropdown-item">My Profile</a>
+                        <a href="/users/logout" class="dropdown-item">Logout</a>
+
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+
+<!--
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link" href="/users/login">Giriş Yap</a>
+            </li>
+        </ul>
+
+
+    </div> 
+    -->
+</nav>
+
+<script>
+    if (!user.initialPasswordChange) {
+        alert('Lütfen şifrenizi değiştirin!');
+    }
+</script>

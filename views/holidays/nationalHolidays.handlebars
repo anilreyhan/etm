@@ -1,0 +1,126 @@
+<div class="card text-right mb-3">
+  <div class="card-header">
+    <div class="container">
+      <form class="form-inline">
+        <input id="searchBar" class="form-control ml-auto" onkeyup="searchScript(this.value)" type="text"
+          placeholder="Search" aria-label="Search">
+      </form>
+    </div>
+  </div>
+</div>
+
+<a href="addNationalHolidays" class="btn btn-secondary btn-block mb-2">Yeni Resmi Tatil Ekle</a>
+
+
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col">Adı</th>
+      <th scope="col">Başlangıç Tarihi</th>
+      <th scope="col">Bitiş Tarihi</th>
+      <th scope="col">Aksiyon</th>
+
+
+    </tr>
+  </thead>
+  <tbody>
+    {{#each nationalHolidays}}
+    <tr class="pdflist">
+      <td>{{holidayName}}</td>
+      <td>{{holidayStart}}</td>
+      <td>{{holidayEnd}}</td>
+      <td>
+        <div class="btn-group">
+          <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">Aksiyon</button>
+          <span class="caret"></span>
+          <span class="sr-only">Toggle Dropdown</span>
+          </button>
+          <ul class="dropdown-menu" role="menu">
+
+          
+            <li>
+              <form method="post" action="/deleteNationalHolidays/{{id}}?_method=DELETE">
+                <input type="hidden" name="_method" value="DELETE">
+                <input type="submit" class="btn btn-danger btn-block" value="Sil">
+              </form>
+            </li>
+
+          </ul>
+      </td>
+    </tr>
+    {{/each}}
+  </tbody>
+</table>
+
+
+
+<br>
+
+
+<script>
+  function formatDate(documentDate) {
+    var monthNames = [
+      "Ocak", "Şubat", "Mart",
+      "Nisan", "Mayıs", "Haziran", "Temmuz",
+      "Ağustos", "Eylül", "Ekim",
+      "Kasım", "Aralık"
+    ];
+    var date = new Date(documentDate);
+    var day = date.getDate();
+    var monthIndex = date.getMonth();
+    var year = date.getFullYear();
+
+    return day + ' ' + monthNames[monthIndex] + ' ' + year;
+  }
+  var list = document.getElementsByClassName('pdflist');
+  console.log(list);
+  for (var i = 0; i < list.length; i++) {
+    var innerTR = list[i].cells;
+    for (var j = 0; j < innerTR.length; j++) {
+      if (j == 1 || j == 2)
+        innerTR[j].innerText = formatDate(innerTR[j].innerText)
+    }
+  }
+
+    //var date = document.getElementById('dateField');
+
+    //date.innerHTML = (formatDate(new Date()));
+
+</script>
+
+
+<script>
+
+  function searchScript(value) {
+
+    searchValue = value.toLowerCase();
+
+    //alert(searchText);
+    var elements = document.getElementsByClassName('row'),
+      length = elements.length;
+
+    for (var i = 0; i < length; i++) {
+      var name = elements[i].id;
+      name = name.toLowerCase();
+
+      if (!name.includes(searchValue)) {
+        elements[i].style.display = "none";
+      } else {
+        elements[i].style.display = "block";
+      }
+    }
+
+  }
+
+</script>
+
+<style>
+  p {
+    display: block;
+    margin-top: 0em;
+    margin-bottom: 1em;
+    margin-left: 1em;
+    margin-right: 0;
+  }
+</style>

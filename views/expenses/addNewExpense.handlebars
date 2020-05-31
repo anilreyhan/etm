@@ -1,0 +1,177 @@
+<div class="card card-body">
+    <h3>Add New Expense</h3>
+
+
+    <form action="/expenses/" method="post" enctype="multipart/form-data">
+
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <label class="input-group-text">Document Date</label>
+            </div>
+            <input type="date" class="form-control" name="documentDate" required>
+        </div>
+
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <label class="input-group-text">Document Number</label>
+            </div>
+            <input type="number" class="form-control" name="documentNumber" required>
+        </div>
+
+
+        <div class="input-group">
+            <div class="input-group-prepend">
+                <span class="input-group-text">Comment</span>
+            </div>
+            <input type="text" class="form-control" name="comment" required>
+        </div>
+
+        <br>
+
+        <div class="input-group">
+            <div class="input-group-prepend">
+                <span class="input-group-text">Amount</span>
+            </div>
+            <input type="number" class="form-control" name="amount" required>
+        </div>
+
+        <br>
+
+
+        <div class="input-group">
+            <div class="input-group-prepend">
+                <span class="input-group-text">Tax %8</span>
+            </div>
+            <input type="number" class="form-control" name="tax8">
+        </div>
+
+        <br>
+
+        <div class="input-group">
+            <div class="input-group-prepend">
+                <span class="input-group-text">Tax %18</span>
+            </div>
+            <input type="number" class="form-control" name="tax18">
+        </div>
+
+        <br>
+
+        <div class="input-group">
+            <div class="input-group-prepend">
+                <span class="input-group-text">Total</span>
+            </div>
+            <input type="number" class="form-control" name="total" required>
+        </div>
+        <br>
+    
+
+        <button type="submit" class="btn btn-primary float-right">Submit</button>
+    </form>
+</div>
+<script>
+    var slider = document.getElementById("myRange");
+    var output = document.getElementById("demo");
+    output.innerHTML = slider.value;
+
+    slider.oninput = function () {
+        output.innerHTML = this.value;
+    }
+</script>
+
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+
+
+<script>
+    $(document).ready(function () {
+        console.log("asda");
+        getData();
+    });
+
+    function arrangeElements(data) {
+        
+        for (var i = 0; i < data.length; i++) {
+            if( !(data[i].hrId==1 || data[i].hrId==2) )
+            $('#myUL').append('<li><a onclick="newwin(this)" href="#" >' + data[i].FName +' '+ data[i].LName +' - '+ data[i].hrId + '</a></li>');
+        }
+    }
+
+
+    function focusInTeslimAlan() {
+        console.log("focusin");
+        document.getElementById("myUL").style.display = "block";
+    }
+
+
+    function getData() {
+        var uri = "http://atlas.whoattends.com/users/userlist";
+        console.log("get data");
+        $.ajax({
+            type: 'GET',
+            url: uri,
+            headers: {
+                'token': '123123123'
+            },
+            success: function (data) {
+                arrangeElements(data);
+            }
+        });
+    }
+
+
+
+    function newwin(data) {
+        console.log(data);
+        document.getElementById("myUL").style.display = "none";
+
+        document.getElementById("myInput").value = data.innerHTML;
+    }
+
+
+
+    function handleTeslimAlanChange() {
+        var input, filter, ul, li, a, i, txtValue;
+        input = document.getElementById("myInput");
+        filter = input.value.toUpperCase();
+        ul = document.getElementById("myUL");
+        li = ul.getElementsByTagName("li");
+        for (i = 0; i < li.length; i++) {
+            a = li[i].getElementsByTagName("a")[0];
+            txtValue = a.textContent || a.innerText;
+            if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                li[i].style.display = "";
+            } else {
+                li[i].style.display = "none";
+            }
+        }
+    }
+
+</script>
+
+<style>
+    #myUL {
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+        display: none;
+    }
+
+    #myUL li a {
+        border: 1px solid #ddd;
+        margin-top: -1px;
+        /* Prevent double borders */
+        background-color: #f6f6f6;
+        padding: 12px;
+        text-decoration: none;
+        font-size: 18px;
+        color: black;
+        display: block
+    }
+
+
+    .list-group {
+        max-height: 220px;
+        margin-bottom: 10px;
+        overflow: scroll;
+        -webkit-overflow-scrolling: touch;
+    }
+</style>

@@ -1,0 +1,72 @@
+<div class="row">
+    <div class="col-md-6 mx-auto">
+        <div class="card card-body">
+            <h3 class="text-center">Add User</h3>
+            <form action="/users/register" method="post">
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <input type="text" class="form-control" name="FName" value="{{FName}}" required>
+                </div>
+                <div class="form-group">
+                    <label for="name">Surname</label>
+                    <input type="text" class="form-control" name="LName" value="{{LName}}" required>
+                </div>
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" name="username" class="form-control" value="{{username}}" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Mail</label>
+                    <input type="text" name="mail" class="form-control" value="{{mail}}" required>
+                </div>
+                <div class="form-group">
+                    <label for="phone">Phone</label>
+                    <input type="text" name="phone" class="form-control" value="{{phone}}">
+                </div>
+                <div class="form-group">
+                    <label for="phone">Birthday</label>
+                    <input type="date" name="birthday" class="form-control" value="{{birthday}}">
+                </div>
+                <div class="form-group">
+                    <label for="phone">Hiring Date</label>
+                    <input type="date" name="hiringDate" class="form-control" value="{{hiringDate}}">
+                </div>
+
+                <button type="submit" class="btn btn-secondary">Submit</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
+<script>
+
+    var koordinatorluk = document.getElementById("koordinatorluk_secim");
+    var koordinatorluk_gorev = document.getElementById("koordinatorluk_gorev_secim");
+
+    koordinatorluk.style.display = "none";
+    koordinatorluk_gorev.style.display = "none";
+
+    function toggleCoordinator(checkBox) {
+        if (checkBox.checked == true) {
+            koordinatorluk.style.display = "block";
+        } else {
+            koordinatorluk.style.display = "none";
+            koordinatorluk_gorev.style.display = "none";
+            koordinatorluk.getElementsByTagName('option')[0].selected = 'selected'
+            koordinatorluk_gorev.getElementsByTagName('option')[0].selected = 'selected'
+
+        }
+    }
+    function toggleGorev(optionBox) {
+        console.log(optionBox.value);
+        if (optionBox.value.includes("Genel")) {
+            koordinatorluk_gorev.style.display = "none";
+            koordinatorluk_gorev.getElementsByTagName('option')[0].selected = 'selected'
+
+        } else {
+            koordinatorluk_gorev.style.display = "block";
+        }
+    }
+</script>

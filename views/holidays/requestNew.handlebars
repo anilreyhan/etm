@@ -1,0 +1,77 @@
+<div class="row">
+    <div class="col-md-6 mx-auto">
+        <div class="card card-body">
+            <h3>New Holiday Request</h3>
+
+
+            <form action="/holidays/requestNew" method="post">
+
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <label class="input-group-text">Requested holidays</label>
+                    </div>
+                    <input type="number" class="form-control" value="{{requestedHolidays}}" name="requestedHolidays"
+                        required>
+                </div>
+
+
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="">Holiday Start Date</span>
+                    </div>
+                    <input type="date" id="holidayStart" class="form-control" name="holidayStart"
+                        value="{{holidayStart}}" required>
+                </div>
+
+                <br>
+
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="">Holiday End Date</span>
+                    </div>
+                    <input type="date" id="holidayEnd" class="form-control" name="holidayEnd" value="{{holidayEnd}}"
+                        required>
+                </div>
+
+                <br>
+
+                <div class="form-group" id="holidayType">
+                    <div class="input-group-prepend">
+                        <label for="holidayType">Holiday Type</label>
+                    </div>
+                    <select class="form-control" id="holidayType" name="holidayType">
+                        <option value="" selected disabled hidden>Please Select</option>
+                        <option>Annual Holidays - Left (12})</option>
+                        <option>Excuse Holidays - Left (4)</option>
+                        <option>Marriage Holiday - Left (2)</option>
+                        <option>Moving Holidays - Left (3)</option>
+                        <option>Birthday Holidays- Left (1)</option>
+                        <option>Administrative Holidays - Left (5)</option>
+
+                    </select>
+                </div>
+
+                <br>
+
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <label class="input-group-text">Explanation</label>
+                    </div>
+                    <textarea rows="4" class="form-control" name="comment">{{comment}}</textarea>
+                </div>
+
+                <br>
+                <button type="submit" class="btn btn-primary float-right">Submit</button>
+            </form>
+        </div>
+    </div>
+</div>
+<script>
+    var slider = document.getElementById("myRange");
+    var output = document.getElementById("demo");
+    output.innerHTML = slider.value;
+
+    slider.oninput = function () {
+        output.innerHTML = this.value;
+    }
+</script>

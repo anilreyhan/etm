@@ -1,0 +1,169 @@
+<div class="jumbotron">
+    <h1 class="display-4">{{userRequested.FName}} {{userRequested.LName}}</h1>
+
+    <a href="/users/editInfo/{{userRequested.id}}" class="btn btn-secondary float-right">Bilgilerimi Güncelle</a>
+
+    <p class="lead">Bu alan tamamen size özeldir.</p>
+    <hr class="my-4">
+    <div class="card">
+        <h5 class="card-header">İzinlerim</h5>
+        <div class="card-body">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">Adı</th>
+                        <th scope="col">Başlangıç Tarihi</th>
+                        <th scope="col">Bitiş Tarihi</th>
+                        <th scope="col">Onay durumu</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each holiday}}
+                    <tr class="pdflist">
+                        <td>{{FName}} {{LName}}</td>
+                        <td>{{holidayStart}}</td>
+                        <td>{{holidayEnd}}</td>
+
+                        <td class="{{#if isApproved}}table-success{{else}}table-warning{{/if}}">{{#if
+                            isApproved}}İzin talebiniz {{approverFName}} {{approverLName}} tarafından onaylandı.
+                            {{else}}İzin talebiniz henüz
+                            onaylanmadı.{{/if}}</td>
+                    </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <hr>
+    <div class="card">
+        <h5 class="card-header">Bilgilerim</h5>
+        <div class="card-body">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">İşe giriş tarihim</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="formatdate">
+                        <td>{{userRequested.hiringDate}}</td>
+                    </tr>
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <hr>
+
+    <div class="card">
+        <h5 class="card-header">Kalan İzinlerim</h5>
+        <div class="card-body">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">İzin Türü</th>
+                        <th scope="col">Kalan Gün Sayısı</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    <tr>
+                        <td>Mazeret İzni</td>
+                        <td>{{userRequested.remainingExcuseHolidays}}</td>
+                    </tr>
+                    <tr>
+                        <td>Evlilik İzni</td>
+                        <td>{{userRequested.remainingMarriageHolidays}}</td>
+                    </tr>
+                    <tr>
+                        <td>Taşınma İzni</td>
+                        <td>{{userRequested.remainingMovingHolidays}}</td>
+                    </tr>
+                    <tr>
+                        <td>Doğum Günü İzni</td>
+                        <td>{{userRequested.remainingBirthdayHolidays}}</td>
+                    </tr>
+                    <tr>
+                        <td>Yıllık İzin</td>
+                        <td>{{userRequested.remainingAnnualHolidays}}</td>
+                    </tr>
+                    <tr>
+                        <td>İdari İzin</td>
+                        <td>{{userRequested.remainingAdministrativeHolidays}}</td>
+                    </tr>
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <hr>
+
+    <p>Aşağıda yer alan tarihler, resmi tatil zamanlarına ek, zorunlu olarak yıllık izinlerden kullandırılacaktır: </p>
+
+    <img src="/img/zorunlu-tatiller.webp" class="mx-auto img-fluid">
+
+    <hr>
+</div>
+
+<script>
+    function formatDate(documentDate) {
+        var monthNames = [
+            "Ocak", "Şubat", "Mart",
+            "Nisan", "Mayıs", "Haziran", "Temmuz",
+            "Ağustos", "Eylül", "Ekim",
+            "Kasım", "Aralık"
+        ];
+        var date = new Date(documentDate);
+        var day = date.getDate();
+        var monthIndex = date.getMonth();
+        var year = date.getFullYear();
+
+        return day + ' ' + monthNames[monthIndex] + ' ' + year;
+    }
+    var list = document.getElementsByClassName('pdflist');
+    console.log(list);
+    for (var i = 0; i < list.length; i++) {
+        var innerTR = list[i].cells;
+        for (var j = 0; j < innerTR.length; j++) {
+            if (j == 1 || j == 2)
+                innerTR[j].innerText = formatDate(innerTR[j].innerText)
+        }
+    }
+
+    //var date = document.getElementById('dateField');
+
+    //date.innerHTML = (formatDate(new Date()));
+
+</script>
+
+<script>
+    function formatDate(documentDate) {
+        var monthNames = [
+            "Ocak", "Şubat", "Mart",
+            "Nisan", "Mayıs", "Haziran", "Temmuz",
+            "Ağustos", "Eylül", "Ekim",
+            "Kasım", "Aralık"
+        ];
+        var date = new Date(documentDate);
+        var day = date.getDate();
+        var monthIndex = date.getMonth();
+        var year = date.getFullYear();
+
+        return day + ' ' + monthNames[monthIndex] + ' ' + year;
+    }
+    var list = document.getElementsByClassName('formatdate');
+    console.log(list);
+    for (var i = 0; i < list.length; i++) {
+        var innerTR = list[i].cells;
+        for (var j = 0; j < innerTR.length; j++) {
+            if (j == 0)
+                innerTR[j].innerText = formatDate(innerTR[j].innerText)
+        }
+    }
+
+    //var date = document.getElementById('dateField');
+
+    //date.innerHTML = (formatDate(new Date()));
+
+</script>

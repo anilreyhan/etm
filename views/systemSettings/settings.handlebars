@@ -1,0 +1,72 @@
+<div class="card card-body">
+    <h3>Yeni İzin Talebi</h3>
+
+    <div class="input-group mb-3">
+        <div class="input-group-prepend">
+            <label class="input-group-text">Kullanılabilir İzin Gün Sayısı</label>
+        </div>
+        <input type="number" class="form-control" value="{{user.remainingHolidays}}" name="requestedHolidays" disabled>
+    </div>
+
+
+    <form action="/holidays/requestNew" method="post">
+
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <label class="input-group-text">Talep edilen izin gün sayısı</label>
+            </div>
+            <input type="number" class="form-control" value="{{requestedHolidays}}" name="requestedHolidays" required>
+        </div>
+
+        <br>
+
+        <div class="input-group">
+            <div class="input-group-prepend">
+                <span class="input-group-text" id="">İzin Başlangıç Tarihi</span>
+            </div>
+            <input type="date" id="holidayStart" class="form-control" name="holidayStart" value="{{holidayStart}}"
+                required>
+        </div>
+
+        <br>
+
+        <div class="input-group">
+            <div class="input-group-prepend">
+                <span class="input-group-text" id="">İşbaşı Tarihi</span>
+            </div>
+            <input type="date" id="holidayEnd" class="form-control" name="holidayEnd" value="{{holidayEnd}}" required>
+        </div>
+
+        <br>
+
+        <div class="form-group" id="holidayType">
+            <label for="holidayType">İzin Türü</label>
+            <select class="form-control" id="holidayType" name="holidayType">
+                <option value="" selected disabled hidden>Lütfen Seçiniz</option>
+                <option>İzin</option>
+                <option>Tatil</option>
+            </select>
+        </div>
+
+        <br>
+
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <label class="input-group-text">Açıklama</label>
+            </div>
+            <textarea rows="4" class="form-control" name="comment">{{comment}}</textarea>
+        </div>
+
+        <br>
+        <button type="submit" class="btn btn-primary float-right">Submit</button>
+    </form>
+</div>
+<script>
+    var slider = document.getElementById("myRange");
+    var output = document.getElementById("demo");
+    output.innerHTML = slider.value;
+
+    slider.oninput = function () {
+        output.innerHTML = this.value;
+    }
+</script>

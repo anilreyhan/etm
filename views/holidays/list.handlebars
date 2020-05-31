@@ -1,0 +1,389 @@
+<head>
+
+  <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+  <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
+
+</head>
+
+
+<div class="card">
+  <div class="card-body">
+    <div class="table-responsive">
+
+      <div class="panel panel-primary filterable">
+        <div class="panel-heading">
+          <h5 class="panel-title ">All Holidays</h5>
+          <div class="float-lg-right">
+            <button class="btn btn-default btn-xs btn-filter"><span class="glyphicon glyphicon-filter"></span>
+              Filter</button>
+          </div>
+        </div>
+        <table class="table table-striped">
+          <thead>
+            <tr class="filters">
+              <th><input type="text" class="form-control" placeholder="Name" disabled></th>
+              <th><input type="text" class="form-control" placeholder="Holiday Start" disabled></th>
+              <th><input type="text" class="form-control" placeholder="Holiday End" disabled></th>
+              <th><input type="text" class="form-control" placeholder="Holiday Duration" disabled></th>
+              <th><input type="text" class="form-control" placeholder="Holiday Type" disabled></th>
+              <th><input type="text" class="form-control" placeholder="Comments" disabled></th>
+              <th><input type="text" class="form-control" placeholder="Status" disabled></th>
+              <th scope="col">Action</th>
+
+            </tr>
+          </thead>
+          <tbody>
+            {{#each holidays}}
+            <tr class="pdflist">
+              <td>{{FName}} {{LName}}</td>
+              <td>{{holidayStart}}</td>
+              <td>{{holidayEnd}}</td>
+              <td>{{requestedHolidays}}</td>
+              <td>{{holidayType}}</td>
+              <td>{{comment}}</td>
+              <td class="{{#if isApproved}}table-success{{else}}table-warning{{/if}}">{{#if
+                            isApproved}}Holiday request is approved by {{approverFName}} {{approverLName}} 
+                {{else}}Request is not yet approved.{{/if}}</td>
+
+
+              <td>
+                <div class="btn-group">
+                  <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">Aksiyon</button>
+                  <span class="caret"></span>
+                  <span class="sr-only">Toggle Dropdown</span>
+                  </button>
+                  <ul class="dropdown-menu" role="menu">
+                    {{#unless isApproved}}
+                    <form method="post" action="/holidays/approve/{{id}}?_method=PUT">
+                      <input type="hidden" name="_method" value="PUT">
+                      <input type="submit" class="btn btn-success mb-2 btn-block" value="Approve Request">
+                    </form>
+                    {{/unless}}
+                    <form method="post" action="/holidays/{{id}}?_method=DELETE">
+                      <input type="hidden" name="_method" value="DELETE">
+                      <input type="submit" class="btn btn-danger btn-block" value="Decline Request">
+                    </form>
+
+                  </ul>
+
+              </td>
+
+            </tr>
+            {{/each}}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <hr>
+
+</div>
+
+<script>
+
+</script>
+
+<script>
+  $('.table-responsive').on('show.bs.dropdown', function () {
+    $('.table-responsive').css("overflow", "inherit");
+  });
+
+  $('.table-responsive').on('hide.bs.dropdown', function () {
+    $('.table-responsive').css("overflow", "auto");
+  })
+</script>
+
+<script>
+
+  $('#demo').pagination({
+    dataSource: ,
+    callback: function (data, pagination) {
+      // template method of yourself
+      var html = template(data);
+      dataContainer.html(html);
+    }
+  })
+
+</script>
+
+
+
+
+<style>
+  .btn-group {
+    white-space: nowrap;
+  }
+
+  .btn-group .btn {
+    float: none;
+    display: inline-block;
+  }
+
+  .btn+.dropdown-toggle {
+    margin-left: -4px;
+  }
+
+  @media screen and (max-width: 1400px) {
+    .table-responsive {
+      border: 1px solid #ddd;
+      margin-bottom: 15px;
+      overflow-x: auto;
+      overflow-y: hidden;
+      width: 100%;
+    }
+
+    .table-responsive>.table {
+      margin-bottom: 0;
+    }
+
+    .table-responsive>.table>thead>tr>th,
+    .table-responsive>.table>tbody>tr>th,
+    .table-responsive>.table>tfoot>tr>th,
+    .table-responsive>.table>thead>tr>td,
+    .table-responsive>.table>tbody>tr>td,
+    .table-responsive>.table>tfoot>tr>td {
+      white-space: nowrap;
+    }
+
+  }
+</style>
+
+
+
+<script>
+
+  function searchScript(value) {
+    searchValue = value.toLowerCase();
+    //alert(searchText);
+    var elements = document.getElementsByName('asd'),
+
+      length = elements.length;
+
+
+    for (var i = 0; i < length; i++) {
+      var name = elements[i].id;
+      name = name.toLowerCase();
+      if (!name.includes(searchValue)) {
+        elements[i].style.display = "none";
+      } else {
+        elements[i].style.display = "";
+      }
+    }
+
+  }
+
+</script>
+
+<style>
+  p {
+    display: block;
+    margin-top: 1em;
+    margin-bottom: 0em;
+    margin-left: 1em;
+    margin-right: 0;
+  }
+</style>
+
+
+<script>
+  function formatDate(documentDate) {
+    var monthNames = [
+      "January", "February", "March",
+      "April", "May", "June", "July",
+      "August", "September", "October",
+      "November", "December"
+    ];
+    var date = new Date(documentDate);
+    var day = date.getDate();
+    var monthIndex = date.getMonth();
+    var year = date.getFullYear();
+
+    return day + ' ' + monthNames[monthIndex] + ' ' + year;
+  }
+  function formatType(input) {
+    var inputInfo = input.split(" - ");
+    var final = inputInfo[0];
+    return final;
+  }
+  var list = document.getElementsByClassName('pdflist');
+  console.log(list);
+  for (var i = 0; i < list.length; i++) {
+    var innerTR = list[i].cells;
+    for (var j = 0; j < innerTR.length; j++) {
+      if (j == 4)
+        innerTR[j].innerText = formatType(innerTR[j].innerText)
+      if (j == 1 || j == 2)
+        innerTR[j].innerText = formatDate(innerTR[j].innerText)
+    }
+  }
+
+    //var date = document.getElementById('dateField');
+
+    //date.innerHTML = (formatDate(new Date()));
+</script>
+
+<style>
+  .filterable {
+    margin-top: 15px;
+  }
+
+  .filterable .panel-heading .pull-right {
+    margin-top: -20px;
+  }
+
+  .filterable .filters input[disabled] {
+    background-color: transparent;
+    border: none;
+    cursor: auto;
+    box-shadow: none;
+    padding: 0;
+    height: auto;
+  }
+
+  .filterable .filters input[disabled]::-webkit-input-placeholder {
+    color: #333;
+  }
+
+  .filterable .filters input[disabled]::-moz-placeholder {
+    color: #333;
+  }
+
+  .filterable .filters input[disabled]:-ms-input-placeholder {
+    color: #333;
+  }
+</style>
+
+<script>
+  $(document).ready(function () {
+    $('.filterable .btn-filter').click(function () {
+      var $panel = $(this).parents('.filterable'),
+        $filters = $panel.find('.filters input'),
+        $tbody = $panel.find('.table tbody');
+      if ($filters.prop('disabled') == true) {
+        $filters.prop('disabled', false);
+        $filters.first().focus();
+      } else {
+        $filters.val('').prop('disabled', true);
+        $tbody.find('.no-result').remove();
+        $tbody.find('tr').show();
+      }
+    });
+
+    $('.filterable .filters input').keyup(function (e) {
+      /* Ignore tab key */
+      var code = e.keyCode || e.which;
+      if (code == '9') return;
+      /* Useful DOM data and selectors */
+      var $input = $(this),
+        inputContent = $input.val().toLowerCase(),
+        $panel = $input.parents('.filterable'),
+        column = $panel.find('.filters th').index($input.parents('th')),
+        $table = $panel.find('.table'),
+        $rows = $table.find('tbody tr');
+      /* Dirtiest filter function ever ;) */
+      var $filteredRows = $rows.filter(function () {
+        var value = $(this).find('td').eq(column).text().toLowerCase();
+        return value.indexOf(inputContent) === -1;
+      });
+      /* Clean previous no-result if exist */
+      $table.find('tbody .no-result').remove();
+      /* Show all rows, hide filtered ones (never do that outside of a demo ! xD) */
+      $rows.show();
+      $filteredRows.hide();
+      /* Prepend no-result row if all rows are filtered */
+      if ($filteredRows.length === $rows.length) {
+        $table.find('tbody').prepend($('<tr class="no-result text-center"><td colspan="' + $table.find('.filters th').length + '">No result found</td></tr>'));
+      }
+    });
+  });
+</script>
+
+
+<!--
+<div class="card text-right mb-3">
+  <div class="card-header">
+    <div class="container">
+      <form class="form-inline">
+        <input id="searchBar" class="form-control ml-auto" onkeyup="searchScript(this.value)" type="text" placeholder="Search"
+          aria-label="Search">
+      </form>
+    </div>
+  </div>
+</div>
+
+
+
+
+<ul class="list-group">
+  {{#each holidays}}
+  <div class="list-group-item" id="{{title}}">
+    <div class="row">
+      <div class="col-sm-9">
+        <h3>{{{FName}}} {{LName}}</h3>
+        <div class="row justify-content-between">
+
+          <div class="col-8 col-sm-6">
+            <div class="row">
+              <p>İzin başlangıç - bitiş tarihleri: {{holidayStart}} - {{holidayEnd}}</p>
+            </div>
+            <div class="row">
+              <p>İzin süresi: {{requestedHolidays}}</p>
+            </div>
+            <div class="row">
+              <p>İzin açıklaması: {{comment}}</p>
+            </div>
+          </div>
+
+
+          <div class="col-4 col-sm-4 align-self-end">
+            <a href="preview/{{id}}" class="btn btn-secondary btn-block mb-2">İzin talebini görüntüle</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  {{/each}}
+</ul>
+
+<br>
+
+
+<script>
+
+  function searchScript(value) {
+
+    searchValue = value.toLowerCase();
+
+    //alert(searchText);
+    var elements = document.getElementsByClassName('row'),
+      length = elements.length;
+
+    for (var i = 0; i < length; i++) {
+      var name = elements[i].id;
+      name = name.toLowerCase();
+
+      if (!name.includes(searchValue)) {
+        elements[i].style.display = "none";
+      } else {
+        elements[i].style.display = "block";
+      }
+    }
+
+  }
+
+</script>
+
+<style>
+  p {
+    display: block;
+    margin-top: 0em;
+    margin-bottom: 1em;
+    margin-left: 1em;
+    margin-right: 0;
+  }
+</style>
+
+
+
+-->

@@ -1,0 +1,95 @@
+<div class="card text-right mb-3">
+  <div class="card-header">
+    <div class="container">
+      <form class="form-inline">
+        <input id="searchBar" class="form-control ml-auto" onkeyup="searchScript(this.value)" type="text" placeholder="Search"
+          aria-label="Search">
+      </form>
+    </div>
+  </div>
+</div>
+
+
+
+
+<ul class="list-group">
+  {{#each holidays}}
+  <div class="list-group-item" id="{{title}}">
+    <div class="row">
+      <div class="col-sm-9">
+        <h3>{{{FName}}} {{LName}}</h3>
+        <div class="row justify-content-between">
+
+          <div class="col-8 col-sm-6">
+            <div class="row">
+              <p>İzin başlangıç - bitiş tarihleri: {{holidayStart}} - {{holidayEnd}}</p>
+            </div>
+            <div class="row">
+              <p>İzin süresi: {{requestedHolidays}}</p>
+            </div>
+            <div class="row">
+              <p>İzin açıklaması: {{comment}}</p>
+            </div>
+          </div>
+
+
+          <div class="col-4 col-sm-4 align-self-end">
+
+            <a href="preview/{{id}}" class="btn btn-secondary btn-block mb-2">İzin talebini görüntüle</a>
+
+            {{#unless isApproved}}
+            <form method="post" action="/holidays/approve/{{id}}?_method=PUT">
+              <input type="hidden" name="_method" value="PUT">
+              <input type="submit" class="btn btn-success mb-2 btn-block" value="İzin talebini onayla">
+            </form>
+            {{/unless}}
+            <form method="post" action="/holidays/{{id}}?_method=DELETE">
+              <input type="hidden" name="_method" value="DELETE">
+              <input type="submit" class="btn btn-danger btn-block" value="İzin talebini Sil">
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  {{/each}}
+</ul>
+
+<br>
+
+
+<script>
+
+  function searchScript(value) {
+
+    searchValue = value.toLowerCase();
+
+    //alert(searchText);
+    var elements = document.getElementsByClassName('row'),
+      length = elements.length;
+
+    for (var i = 0; i < length; i++) {
+      var name = elements[i].id;
+      name = name.toLowerCase();
+
+      if (!name.includes(searchValue)) {
+        elements[i].style.display = "none";
+      } else {
+        elements[i].style.display = "block";
+      }
+    }
+
+  }
+
+</script>
+
+<style>
+  p {
+    display: block;
+    margin-top: 0em;
+    margin-bottom: 1em;
+    margin-left: 1em;
+    margin-right: 0;
+  }
+</style>

@@ -1,0 +1,31 @@
+<div class="row">
+    <div class="col-md-6 mx-auto">
+        <div class="card card-body">
+            <h3 class="text-center">Kullanıcı Bilgilerini Güncelle</h3>
+            <form action="/users/editInfo/{{userRequested._id}}?_method=PUT" method="post">
+                <div class="form-group">
+                    <label for="name">İsim</label>
+                    <input type="text" class="form-control" name="name" value="{{userRequested.FName}} {{userRequested.LName}}"  readonly>
+                </div>
+                <div class="form-group">
+                    <label for="username">Kullanıcı Adı</label>
+                    <input type="text" name="username" class="form-control" value="{{userRequested.username}}"   readonly >
+                </div>
+                <div class="form-group">
+                    <label for="password">Mail Adresi</label>
+                    <input type="mail" name="mail" class="form-control" value="{{userRequested.mail}}" >
+                </div>
+                <div class="form-group">
+                    <label for="password">Yeni Şifre</label>
+                    <input type="password" name="password" placeholder="Değiştirmemek için boş bırakınız..." class="form-control" value="{{password}}" >
+                </div>
+                <div class="form-group">
+                    <label for="password2">Yeni Şifreyi Onayla</label>
+                    <input type="password" name="password2" placeholder="Değiştirmemek için boş bırakınız..." class="form-control" value="{{password2}}" >
+                </div>
+            
+                <button type="submit" class="btn btn-secondary">Gönder</button>
+            </form>
+        </div>
+    </div>
+</div>

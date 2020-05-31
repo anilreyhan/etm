@@ -1,0 +1,64 @@
+<div class="card card-body">
+    <h3>Harcama Ekle</h3>
+
+    <br>
+    <a href="/expenses/addNewEvent" class="btn btn-secondary btn-block mb-2">Etkinlik Ekle</a>
+    <br>
+    <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#selectEventModal">
+        Varolan Etkinliğe Ekle
+    </button>
+    <br>
+    <a href="/expenses/addWithoutEvent" class="btn btn-secondary btn-block mb-2">Etkinlik Dışı Harcama Ekle</a>
+
+</div>
+
+
+
+
+<div class="modal fade" id="selectEventModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Etkinlik Seçiniz</h5>
+
+            </div>
+            <div class="modal-body">
+
+
+                <div class="form-group" >
+                    <label for="eventToAdd"></label>
+                    <select class="form-control" id="eventToAdd"  name="eventToAdd">
+                        {{#if event}}
+                        <option selected disabled hidden>Lütfen Seçiniz</option>
+                        {{#each event}}
+                        <option value="showEvent/{{id}}">{{name}}</option>
+                        {{/each}}
+                        {{else}}
+                        <option selected disabled hidden>Adınıza kayıtlı etkinlik bulunamadı.</option>
+                        {{/if}}
+                    </select>
+                </div>
+                <a id="selectButton"  class="btn btn-secondary btn-block mb-2">Etkinliğe Ekle</a>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Kapat</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        var sel = document.getElementById('eventToAdd');
+        sel.onchange = function () {
+            document.getElementById("selectButton").href = this.value;
+            console.log(">---------------------------------<");
+            console.log(this);
+            console.log(">--------------+++----------------<");
+            console.log(this.value);
+            console.log(">---------------------------------<");
+
+
+
+        }
+    </script>
+</div>

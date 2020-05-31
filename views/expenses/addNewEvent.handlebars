@@ -1,0 +1,74 @@
+<div class="card card-body">
+    <h3>Etkinlik Ekle</h3>
+
+
+    <form action="/expenses/addNewEvent" method="post">
+
+        <div class="input-group">
+            <div class="input-group-prepend">
+                <span class="input-group-text">Etkinlik Adı</span>
+            </div>
+            <input type="text" class="form-control" name="name" required>
+        </div>
+        <br>
+
+        <div class="input-group">
+            <div class="input-group-prepend">
+                <span class="input-group-text">Kullanıcı</span>
+            </div>
+            <input type="text" class="form-control" value="{{user.FName}} {{user.FName}}" disabled>
+        </div>
+        <br>
+
+
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <label class="input-group-text">Başlangıç Tarihi</label>
+            </div>
+            <input type="date" class="form-control" name="dateStart" required>
+        </div>
+
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <label class="input-group-text">Bitiş Tarihi</label>
+            </div>
+            <input type="date" class="form-control" name="dateEnd" required>
+        </div>
+
+        <div class="input-group">
+            <div class="input-group-prepend">
+                <span class="input-group-text">Açıklama</span>
+            </div>
+            <input type="text" class="form-control" name="comment" required>
+        </div>
+
+        <br>
+
+        <div class="input-group">
+            <div class="input-group-prepend">
+                <span class="input-group-text">Belge Toplamı</span>
+            </div>
+            <input type="number" class="form-control" name="total" default=0 disabled>
+        </div>
+        <br>
+
+        <button type="submit" class="btn btn-primary float-right">Submit</button>
+    </form>
+
+
+
+
+
+</div>
+
+
+
+<script>
+    var slider = document.getElementById("myRange");
+    var output = document.getElementById("demo");
+    output.innerHTML = slider.value;
+
+    slider.oninput = function () {
+        output.innerHTML = this.value;
+    }
+</script>

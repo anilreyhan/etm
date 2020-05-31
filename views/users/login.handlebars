@@ -1,0 +1,59 @@
+<div class="row">
+  <div class="col-md-6 mx-auto">
+    <div class="card card-body">
+      <img class="logo" src="/img/ETM_Logo.png" height="300vh">
+      <hr>
+      <h3 class="text-center">Login</h3>
+      <form method="post" action="/users/login">
+        <div class="form-group">
+          <label for="username">Username</label>
+          <input type="text" name="username" class="form-control" required>
+        </div>
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password" name="password" class="form-control" required>
+        </div>
+        <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#forgotPasswordModal">
+          Forgot My Password
+        </button>
+        <button type="submit" class="btn btn-secondary float-right">Login</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal fade" id="forgotPasswordModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Forgot My Password</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        
+       <form method="post" action="/users/forgotPassword">
+        <div class="form-group">
+          <label for="username">Username</label>
+          <input type="text" name="username" class="form-control" required>
+        </div>
+
+        <div class="form-group">
+          <label for="mail">Mail</label>
+          <input type="mail" name="mail" class="form-control" required>
+        </div>
+
+        <button type="submit" class="btn btn-secondary float-right">Resend Password</button>
+
+      </form>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
